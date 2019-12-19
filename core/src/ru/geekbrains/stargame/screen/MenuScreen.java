@@ -26,6 +26,9 @@ public class MenuScreen extends BaseScreen {
         bg = new Texture("textures/bg.png");
         background = new Background(new TextureRegion(bg));
         img = new Texture("badlogic.jpg");
+        between = new Vector2();
+        vector = new Vector2();
+        touch = new Vector2();
         pos = new Vector2();
     }
 
@@ -42,7 +45,7 @@ public class MenuScreen extends BaseScreen {
 
         between = touch.cpy().sub(pos);
         if (between.len() > vector.len()){
-            // System.out.println("between.len() - " + between.len() + " vector.len() - " + vector.len());
+            System.out.println("between.len() - " + between.len() + " vector.len() - " + vector.len());
             pos.add(vector);
         } else pos = touch;
     }
@@ -62,8 +65,8 @@ public class MenuScreen extends BaseScreen {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        vector = new Vector2(screenX,Gdx.graphics.getHeight() - screenY);
-        vector.set(vector.cpy().sub(pos).nor().scl(speed));
+        vector = new Vector2(screenX, screenY);
+        vector.set(touch.cpy().sub(pos).nor().scl(speed));
         return false;
     }
 }
