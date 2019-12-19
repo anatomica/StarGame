@@ -13,6 +13,10 @@ public class MenuScreen extends BaseScreen {
     private Texture img;
     private Texture bg;
     private Vector2 pos;
+    private Vector2 touch;
+    private Vector2 vector;
+    private Vector2 between;
+    private float speed = 2;
 
     private Background background;
 
@@ -35,6 +39,12 @@ public class MenuScreen extends BaseScreen {
         background.draw(batch);
         batch.draw(img, pos.x, pos.y, 0.25f, 0.25f);
         batch.end();
+
+        between = touch.cpy().sub(pos);
+        if (between.len() > vector.len()){
+            // System.out.println("between.len() - " + between.len() + " vector.len() - " + vector.len());
+            pos.add(vector);
+        } else pos = touch;
     }
 
     @Override
@@ -51,7 +61,9 @@ public class MenuScreen extends BaseScreen {
     }
 
     @Override
-    public boolean touchDown(Vector2 touch, int pointer, int button) {
-        return super.touchDown(touch, pointer, button);
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        vector = new Vector2(screenX,Gdx.graphics.getHeight() - screenY);
+        vector.set(vector.cpy().sub(pos).nor().scl(speed));
+        return false;
     }
 }
