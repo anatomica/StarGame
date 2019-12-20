@@ -11,12 +11,6 @@ import ru.geekbrains.stargame.sprite.Logo;
 
 public class MenuScreen extends BaseScreen {
 
-    private Vector2 pos;
-    private Vector2 touch;
-    private Vector2 vector;
-    private Vector2 between;
-    private float speed = 2;
-
     private Texture bg;
     private Texture blt;
     private Background background;
@@ -29,10 +23,6 @@ public class MenuScreen extends BaseScreen {
         background = new Background(new TextureRegion(bg));
         blt = new Texture("badlogic.jpg");
         badLogic = new Logo(new TextureRegion(blt));
-        between = new Vector2();
-        vector = new Vector2();
-        touch = new Vector2();
-        pos = new Vector2();
     }
 
     @Override
@@ -47,7 +37,7 @@ public class MenuScreen extends BaseScreen {
     }
 
     public void draw () {
-        Gdx.gl.glClearColor(0.4f, 0.3f, 0.9f, 1f);
+        Gdx.gl.glClearColor(0.2f, 0.6f, 0.5f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
         background.draw(batch);
