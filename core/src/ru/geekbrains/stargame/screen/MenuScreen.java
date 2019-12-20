@@ -7,25 +7,28 @@ import com.badlogic.gdx.math.Vector2;
 import ru.geekbrains.stargame.base.BaseScreen;
 import ru.geekbrains.stargame.math.Rect;
 import ru.geekbrains.stargame.sprite.Background;
+import ru.geekbrains.stargame.sprite.Logo;
 
 public class MenuScreen extends BaseScreen {
 
-    private Texture img;
-    private Texture bg;
     private Vector2 pos;
     private Vector2 touch;
     private Vector2 vector;
     private Vector2 between;
     private float speed = 2;
 
+    private Texture bg;
+    private Texture blt;
     private Background background;
+    private Logo badLogic;
 
     @Override
     public void show() {
         super.show();
         bg = new Texture("textures/bg.png");
         background = new Background(new TextureRegion(bg));
-        img = new Texture("badlogic.jpg");
+        blt = new Texture("badlogic.jpg");
+        badLogic = new Logo(new TextureRegion(blt));
         between = new Vector2();
         vector = new Vector2();
         touch = new Vector2();
@@ -35,24 +38,26 @@ public class MenuScreen extends BaseScreen {
     @Override
     public void render(float delta) {
         super.render(delta);
-        Gdx.gl.glClearColor(0.2f, 	0.6f, 0.5f, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        update(delta);
+        draw();
+    }
 
+    public void update (float delta) {
+        badLogic.update(delta);
+    }
+
+    public void draw () {
+        Gdx.gl.glClearColor(0.4f, 0.3f, 0.9f, 1f);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
         background.draw(batch);
-        batch.draw(img, pos.x, pos.y, 0.25f, 0.25f);
+        badLogic.draw(batch);
         batch.end();
-
-        between = touch.cpy().sub(pos);
-        if (between.len() > vector.len()){
-            System.out.println("between.len() - " + between.len() + " vector.len() - " + vector.len());
-            pos.add(vector);
-        } else pos = touch;
     }
 
     @Override
     public void dispose() {
-        img.dispose();
+        blt.dispose();
         bg.dispose();
         super.dispose();
     }
@@ -61,12 +66,14 @@ public class MenuScreen extends BaseScreen {
     public void resize(Rect worldBounds) {
         super.resize(worldBounds);
         background.resize(worldBounds);
+        badLogic.resize(worldBounds);
     }
 
     @Override
-    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        vector = new Vector2(screenX, screenY);
-        vector.set(touch.cpy().sub(pos).nor().scl(speed));
-        return false;
+    public boolean touchDown(Vector2 touch, int pointer) {
+        super.touchDown(touch, pointer);
+        badLogic.touchDown(touch, pointer);
+        return super.touchDown(touch, pointer);
     }
+
 }
