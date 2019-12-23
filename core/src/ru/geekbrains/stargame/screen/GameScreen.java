@@ -16,6 +16,7 @@ public class GameScreen extends BaseScreen {
 
     private Texture bg;
     private Background background;
+    private Ship ship;
     private TextureAtlas atlas;
     private Star[] starArray;
 
@@ -23,10 +24,11 @@ public class GameScreen extends BaseScreen {
     public void show() {
         super.show();
         System.out.println("GameScreen_show");
-        bg = new Texture("textures/space.jpg");
+        bg = new Texture("textures/bg.png");
         background = new Background(new TextureRegion(bg));
         atlas = new TextureAtlas("textures/mainAtlas.tpack");
         starArray = new Star[STAR_COUNT];
+        ship = new Ship(atlas);
         for (int i = 0; i < STAR_COUNT; i++) {
             starArray[i] = new Star(atlas);
         }
@@ -42,6 +44,7 @@ public class GameScreen extends BaseScreen {
         for (Star star : starArray) {
             star.update(delta);
         }
+        ship.update(delta);
     }
 
     private void draw() {
@@ -52,6 +55,7 @@ public class GameScreen extends BaseScreen {
         for (Star star : starArray) {
             star.draw(batch);
         }
+        ship.draw(batch);
         batch.end();
     }
 
@@ -62,6 +66,7 @@ public class GameScreen extends BaseScreen {
         for (Star star : starArray) {
             star.resize(worldBounds);
         }
+        ship.resize(worldBounds);
     }
 
     @Override
@@ -83,11 +88,13 @@ public class GameScreen extends BaseScreen {
 
     @Override
     public boolean touchDown(Vector2 touch, int pointer) {
+        ship.touchDown(touch, pointer);
         return false;
     }
 
     @Override
     public boolean touchUp(Vector2 touch, int pointer) {
+        ship.touchUp(touch, pointer);
         return false;
     }
 }
