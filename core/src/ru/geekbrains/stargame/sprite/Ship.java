@@ -2,35 +2,34 @@ package ru.geekbrains.stargame.sprite;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
-import ru.geekbrains.stargame.base.RotateShip;
+import ru.geekbrains.stargame.base.PartOfShip;
 import ru.geekbrains.stargame.math.Rect;
 
-public class Ship extends RotateShip {
+public class Ship extends PartOfShip {
 
-    protected static float LEN = 0.005f;
+    private float length = 0.005f;
     private Vector2 touch;
-    private Vector2 v0;
-    private Vector2 v;
+    private Vector2 trueVector;
+    private Vector2 vector;
 
     public Ship(TextureAtlas atlas) {
         super(atlas.findRegion("main_ship"));
         touch = new Vector2();
-        v0 = new Vector2();
-        v = new Vector2();
+        trueVector = new Vector2();
+        vector = new Vector2();
     }
 
     @Override
     public void update(float delta) {
         super.update(delta);
-        v0.set(touch);
-        if (v0.sub(pos).len() <= LEN) {
+        trueVector.set(touch);
+        if (trueVector.sub(pos).len() <= length) {
             pos.set(touch);
-            setLeftHalf();
+            setRightHalf();
         } else {
-            pos.add(v);
+            pos.add(vector);
             setRightHalf();
         }
-
     }
 
     @Override
@@ -43,7 +42,7 @@ public class Ship extends RotateShip {
     public boolean touchDown(Vector2 touch, int pointer) {
         super.touchDown(touch, pointer);
         this.touch = touch;
-        v.set(touch.cpy().sub(pos).setLength(LEN));
+        vector.set(touch.cpy().sub(pos).setLength(length));
         return false;
     }
 
