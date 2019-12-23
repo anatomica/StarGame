@@ -24,7 +24,7 @@ public class GameScreen extends BaseScreen {
     public void show() {
         super.show();
         System.out.println("GameScreen_show");
-        bg = new Texture("textures/bg.png");
+        bg = new Texture("textures/space.jpg");
         background = new Background(new TextureRegion(bg));
         atlas = new TextureAtlas("textures/mainAtlas.tpack");
         starArray = new Star[STAR_COUNT];
