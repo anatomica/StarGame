@@ -1,5 +1,7 @@
 package ru.geekbrains.stargame.sprite;
+
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+
 import ru.geekbrains.stargame.base.Sprite;
 import ru.geekbrains.stargame.math.Rect;
 

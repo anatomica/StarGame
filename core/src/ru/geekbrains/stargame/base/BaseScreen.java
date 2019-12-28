@@ -1,4 +1,5 @@
 package ru.geekbrains.stargame.base;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
@@ -58,7 +59,6 @@ public class BaseScreen implements Screen, InputProcessor {
 
     public void resize(Rect worldBounds) {
         System.out.println("resize worldBounds width = " + worldBounds.getWidth() + " height = " + worldBounds.getHeight());
-
     }
 
     @Override
@@ -105,11 +105,11 @@ public class BaseScreen implements Screen, InputProcessor {
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         System.out.println("touchDown screenX = " + screenX + " screenY = " + screenY);
         touch.set(screenX, Gdx.graphics.getHeight() - screenY).mul(screenToWorld);
-        touchDown(touch, pointer);
+        touchDown(touch, pointer, button);
         return false;
     }
 
-    public boolean touchDown(Vector2 touch, int pointer) {
+    public boolean touchDown(Vector2 touch, int pointer, int button) {
         System.out.println("touchDown touchX = " + touch.x + " touchY = " + touch.y);
         return false;
     }
@@ -118,11 +118,11 @@ public class BaseScreen implements Screen, InputProcessor {
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
         System.out.println("touchUp screenX = " + screenX + " screenY = " + screenY);
         touch.set(screenX, Gdx.graphics.getHeight() - screenY).mul(screenToWorld);
-        touchUp(touch, pointer);
+        touchUp(touch, pointer, button);
         return false;
     }
 
-    public boolean touchUp(Vector2 touch, int pointer) {
+    public boolean touchUp(Vector2 touch, int pointer, int button) {
         System.out.println("touchUp touchX = " + touch.x + " touchY = " + touch.y);
         return false;
     }

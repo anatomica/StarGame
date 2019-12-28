@@ -7,16 +7,16 @@ import ru.geekbrains.stargame.math.Rect;
 
 public class ButtonExit extends ScaledButton {
 
-
     public ButtonExit(TextureAtlas atlas) {
         super(atlas.findRegion("btExit"));
-        setHeightProportion(0.15f);
     }
 
     @Override
-    public void resize(Rect wordBounds) {
-        setRight(wordBounds.getRight() - 0.05f);
-        setBottom(wordBounds.getBottom() + 0.05f);
+    public void resize(Rect worldBounds) {
+        super.resize(worldBounds);
+        setHeightProportion(0.15f);
+        setRight(worldBounds.getRight() - 0.05f);
+        setBottom(worldBounds.getBottom() + 0.05f);
     }
 
     @Override
