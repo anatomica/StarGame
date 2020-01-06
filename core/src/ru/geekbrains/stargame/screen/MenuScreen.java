@@ -2,6 +2,7 @@ package ru.geekbrains.stargame.screen;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -17,7 +18,7 @@ import ru.geekbrains.stargame.sprite.Star;
 public class MenuScreen extends BaseScreen {
 
     private Game game;
-
+    private Music music;
     private Texture bg;
     private TextureAtlas atlas;
 
@@ -38,6 +39,9 @@ public class MenuScreen extends BaseScreen {
         atlas = new TextureAtlas(Gdx.files.internal("textures/menuAtlas.tpack"));
         buttonExit = new ButtonExit(atlas);
         buttonPlay = new ButtonPlay(atlas, game);
+        music = Gdx.audio.newMusic(Gdx.files.internal("sounds/music.mp3"));
+        music.setLooping(true);
+        music.play();
         stars = new Star[256];
         for (int i = 0; i < stars.length; i++) {
             stars[i] = new Star(atlas);
