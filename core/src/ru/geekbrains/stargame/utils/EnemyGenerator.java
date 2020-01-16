@@ -43,7 +43,6 @@ public class EnemyGenerator {
     private final Vector2 enemySmallV = new Vector2(0f, -0.2f);
     private final Vector2 enemyMediumV = new Vector2(0f, -0.03f);
     private final Vector2 enemyBigV = new Vector2(0f, -0.005f);
-    private final Vector2 enemyStartV = new Vector2(0f, -0.3f);
 
     private TextureRegion bulletRegion;
 
@@ -63,7 +62,6 @@ public class EnemyGenerator {
 
     public void generate(float delta) {
         generateTimer += delta;
-
         if (generateTimer >= generateInterval) {
             generateTimer = 0f;
             Enemy enemy = enemyPool.obtain();
@@ -78,8 +76,7 @@ public class EnemyGenerator {
                         ENEMY_SMALL_BULLET_DAMAGE,
                         ENEMY_SMALL_RELOAD_INTERVAL,
                         ENEMY_SMALL_HEIGHT,
-                        ENEMY_SMALL_HP,
-                        enemyStartV
+                        ENEMY_SMALL_HP
                 );
             } else if (type < 0.8f) {
                 enemy.set(
@@ -91,8 +88,7 @@ public class EnemyGenerator {
                         ENEMY_MEDIUM_BULLET_DAMAGE,
                         ENEMY_MEDIUM_RELOAD_INTERVAL,
                         ENEMY_MEDIUM_HEIGHT,
-                        ENEMY_MEDIUM_HP,
-                        enemyStartV
+                        ENEMY_MEDIUM_HP
                 );
             } else {
                 enemy.set(
@@ -104,8 +100,7 @@ public class EnemyGenerator {
                         ENEMY_BIG_BULLET_DAMAGE,
                         ENEMY_BIG_RELOAD_INTERVAL,
                         ENEMY_BIG_HEIGHT,
-                        ENEMY_BIG_HP,
-                        enemyStartV
+                        ENEMY_BIG_HP
                 );
             }
             enemy.pos.x = Rnd.nextFloat(worldBounds.getLeft() + enemy.getHalfWidth(), worldBounds.getRight() - enemy.getHalfWidth());
