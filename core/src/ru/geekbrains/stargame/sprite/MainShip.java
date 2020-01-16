@@ -20,14 +20,16 @@ public class MainShip extends Ship {
 
     public MainShip(TextureAtlas atlas, BulletPool bulletPool, Sound bulletSound) {
         super(atlas.findRegion("main_ship"), 1, 2, 2);
-        this.reloadInterval = 0.5f;
-        this.bulletHeight = 0.02f;
         this.bulletPool = bulletPool;
-        this.bulletSound = bulletSound;
         this.bulletRegion = atlas.findRegion("bulletMainShip");
         v = new Vector2();
         v0 = new Vector2(0.5f, 0);
         bulletV = new Vector2(0, 0.5f);
+        this.reloadInterval = 0.2f;
+        this.bulletHeight = 0.01f;
+        this.damage = 1;
+        this.bulletSound = bulletSound;
+        this.hp = 100;
     }
 
     @Override

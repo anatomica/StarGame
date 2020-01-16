@@ -11,18 +11,22 @@ public abstract class Ship extends Sprite {
 
     protected BulletPool bulletPool;
     protected TextureRegion bulletRegion;
-    protected Rect worldBounds;
-    protected Sound bulletSound;
 
     protected Vector2 v;
     protected Vector2 vY;
     protected Vector2 v0;
     protected Vector2 bulletV;
-
     protected float bulletHeight;
+
+    protected Rect worldBounds;
+
     protected float reloadInterval;
     protected float reloadTimer;
+
     protected int damage;
+    protected int hp;
+
+    protected Sound bulletSound;
 
     public Ship(TextureRegion region, int rows, int cols, int frames) {
         super(region, rows, cols, frames);
