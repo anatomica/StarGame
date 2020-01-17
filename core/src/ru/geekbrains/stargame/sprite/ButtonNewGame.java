@@ -6,20 +6,20 @@ import ru.geekbrains.stargame.base.ScaledButton;
 import ru.geekbrains.stargame.math.Rect;
 import ru.geekbrains.stargame.screen.GameScreen;
 
-public class ButtonPlay extends ScaledButton {
-    private Game game;
+public class ButtonNewGame extends ScaledButton {
 
-    public ButtonPlay(TextureAtlas atlas, Game game) {
-        super(atlas.findRegion("btPlay"));
+     private Game game;
+
+    public ButtonNewGame(TextureAtlas atlas, Game game) {
+        super(atlas.findRegion("button_new_game"));
         this.game = game;
+        setHeightProportion(0.05f);
     }
 
     @Override
     public void resize(Rect worldBounds) {
-        super.resize(worldBounds);
-        setHeightProportion(0.19f);
-        setLeft(worldBounds.getLeft() + 0.05f);
-        setBottom(worldBounds.getBottom() + 0.05f);
+        setHeightProportion(0.05f);
+        setBottom(-0.07f);
     }
 
     @Override
