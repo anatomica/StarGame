@@ -13,19 +13,29 @@ import ru.geekbrains.stargame.math.Rect;
 import ru.geekbrains.stargame.sprite.Background;
 import ru.geekbrains.stargame.sprite.ButtonExit;
 import ru.geekbrains.stargame.sprite.ButtonPlay;
+import ru.geekbrains.stargame.sprite.NameGame;
 import ru.geekbrains.stargame.sprite.Star;
 
 public class MenuScreen extends BaseScreen {
 
-    private Game game;
-    private Music music;
-    private Texture bg;
-    private TextureAtlas atlas;
+    private static final int STAR_COUNT = 256;
 
+    private Game game;
+
+    private Texture bg;
     private Background background;
+    private TextureAtlas atlas;
+    private TextureAtlas revision;
+    private Star[] starArray;
     private ButtonExit buttonExit;
     private ButtonPlay buttonPlay;
-    private Star[] stars;
+
+    private NameGame nameGame;
+
+    private Music music;
+
+    private boolean isPlaying;
+    private boolean isLooping;
 
     public MenuScreen(Game game) {
         this.game = game;
@@ -34,18 +44,24 @@ public class MenuScreen extends BaseScreen {
     @Override
     public void show() {
         super.show();
+        System.out.println("MenuScreen_show");
         bg = new Texture("textures/space.jpg");
         background = new Background(new TextureRegion(bg));
-        atlas = new TextureAtlas(Gdx.files.internal("textures/menuAtlas.tpack"));
+        atlas = new TextureAtlas("textures/menuAtlas.tpack");
+        revision = new TextureAtlas("textures/revision.tpack");
+        music = Gdx.audio.newMusic(Gdx.files.internal("sounds/music.mp3"));
+        starArray = new Star[STAR_COUNT];
+        for (int i = 0; i < STAR_COUNT; i++) {
+            starArray[i] = new Star(atlas);
+        }
         buttonExit = new ButtonExit(atlas);
         buttonPlay = new ButtonPlay(atlas, game);
-        music = Gdx.audio.newMusic(Gdx.files.internal("sounds/music.mp3"));
+        nameGame = new NameGame(revision);
+        isPlaying = music.isPlaying();
+        isLooping = music.isLooping();
+        music.setVolume(3f);
         music.setLooping(true);
         music.play();
-        stars = new Star[256];
-        for (int i = 0; i < stars.length; i++) {
-            stars[i] = new Star(atlas);
-        }
     }
 
     @Override
@@ -54,23 +70,50 @@ public class MenuScreen extends BaseScreen {
         update(delta);
         draw();
     }
+    private void update(float delta) {
+        for (Star star : starArray) {
+            star.update(delta);
+        }
+        if (!isPlaying) {
+            music.play();
+        }
+        if (!isLooping) {
+            music.setLooping(true);
+        }
+    }
+    private void draw() {
+        Gdx.gl.glClearColor(0f, 0f, 0f, 0f);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        batch.begin();
+        background.draw(batch);
+        nameGame.draw(batch);
+        for (Star star : starArray) {
+            star.draw(batch);
+        }
+        buttonExit.draw(batch);
+        buttonPlay.draw(batch);
+
+        batch.end();
+    }
 
     @Override
     public void dispose() {
-        atlas.dispose();
         bg.dispose();
+        atlas.dispose();
+        revision.dispose();
+        music.dispose();
         super.dispose();
     }
-
     @Override
     public void resize(Rect worldBounds) {
         super.resize(worldBounds);
         background.resize(worldBounds);
-        buttonExit.resize(worldBounds);
-        buttonPlay.resize(worldBounds);
-        for (Star star : stars) {
+        nameGame.resize(worldBounds);
+        for (Star star : starArray) {
             star.resize(worldBounds);
         }
+        buttonExit.resize(worldBounds);
+        buttonPlay.resize(worldBounds);
     }
 
     @Override
@@ -85,25 +128,5 @@ public class MenuScreen extends BaseScreen {
         buttonExit.touchUp(touch, pointer, button);
         buttonPlay.touchUp(touch, pointer, button);
         return false;
-    }
-
-    private void update(float delta) {
-        for (Star star : stars) {
-            star.update(delta);
-        }
-    }
-
-    private void draw() {
-        Gdx.gl.glClearColor(0.2f, 	0.6f, 0.5f, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-        batch.begin();
-        background.draw(batch);
-        for (Star star : stars) {
-            star.draw(batch);
-        }
-        buttonExit.draw(batch);
-        buttonPlay.draw(batch);
-        batch.end();
     }
 }

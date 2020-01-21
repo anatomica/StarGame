@@ -1,0 +1,68 @@
+
+revision.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+SpaceBattle
+  rotate: false
+  xy: 1, 1
+  size: 446, 238
+  orig: 446, 238
+  offset: 0, 0
+  index: -1
+gift
+  rotate: false
+  xy: 449, 143
+  size: 96, 96
+  orig: 96, 96
+  offset: 0, 0
+  index: -1
+levelUp
+  rotate: false
+  xy: 449, 45
+  size: 96, 96
+  orig: 96, 96
+  offset: 0, 0
+  index: -1
+magneto
+  rotate: false
+  xy: 547, 143
+  size: 96, 96
+  orig: 96, 96
+  offset: 0, 0
+  index: -1
+repair
+  rotate: false
+  xy: 547, 45
+  size: 96, 96
+  orig: 96, 96
+  offset: 0, 0
+  index: -1
+shield
+  rotate: false
+  xy: 645, 143
+  size: 96, 96
+  orig: 96, 96
+  offset: 0, 0
+  index: -1
+slow
+  rotate: false
+  xy: 645, 45
+  size: 96, 96
+  orig: 96, 96
+  offset: 0, 0
+  index: -1
+upgrade
+  rotate: false
+  xy: 743, 143
+  size: 96, 96
+  orig: 96, 96
+  offset: 0, 0
+  index: -1
+medal
+  rotate: false
+  xy: 743, 45
+  size: 77, 96
+  orig: 77, 96
+  offset: 0, 0
+  index: -1

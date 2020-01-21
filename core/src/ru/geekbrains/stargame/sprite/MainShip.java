@@ -12,6 +12,7 @@ import ru.geekbrains.stargame.pool.ExplosionPool;
 public class MainShip extends Ship {
 
     private static final int INVALID_POINTER = -1;
+    private static final int HP = 100;
 
     private boolean pressedLeft;
     private boolean pressedRight;
@@ -27,11 +28,17 @@ public class MainShip extends Ship {
         v = new Vector2();
         v0 = new Vector2(0.5f, 0);
         bulletV = new Vector2(0, 0.5f);
-        this.reloadInterval = 0.5f;
+        this.reloadInterval = 0.2f;
         this.bulletHeight = 0.015f;
         this.damage = 1;
         this.bulletSound = bulletSound;
-        this.hp = 10;
+        this.hp = HP;
+    }
+
+    public void startNewGame() {
+        this.hp = HP;
+        this.pos.x = worldBounds.pos.x;
+        flushDestroy();
     }
 
     @Override
@@ -143,6 +150,16 @@ public class MainShip extends Ship {
                         || bullet.getBottom() > pos.y
                         || bullet.getTop() < getBottom()
         );
+    }
+
+    @Override
+    public void destroy() {
+        super.destroy();
+        pressedLeft = false;
+        pressedRight = false;
+        leftPointer = INVALID_POINTER;
+        rightPointer = INVALID_POINTER;
+        stop();
     }
 
     private void moveRight() {
